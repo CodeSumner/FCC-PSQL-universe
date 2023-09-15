@@ -87,7 +87,8 @@ CREATE TABLE public.galaxy (
     galaxy_id integer NOT NULL,
     speed integer,
     description text,
-    name character varying(255) NOT NULL
+    name character varying(255) NOT NULL,
+    rotation_speed character varying(220) DEFAULT '210000m/sec'::character varying NOT NULL
 );
 
 
@@ -195,7 +196,7 @@ ALTER SEQUENCE public.planet_planet_id_seq OWNED BY public.planet.planet_id;
 
 CREATE TABLE public.star (
     star_id integer NOT NULL,
-    radius integer NOT NULL,
+    radius_in_miles integer NOT NULL,
     color character varying(255) NOT NULL,
     name character varying(255) NOT NULL,
     galaxy_id integer
@@ -271,12 +272,12 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: galaxy; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.galaxy VALUES (1, NULL, NULL, 'andromeda');
-INSERT INTO public.galaxy VALUES (2, NULL, NULL, 'whirlpool galaxy');
-INSERT INTO public.galaxy VALUES (3, NULL, NULL, 'pinwheel galaxy');
-INSERT INTO public.galaxy VALUES (4, NULL, NULL, 'milky way');
-INSERT INTO public.galaxy VALUES (5, NULL, NULL, 'triangulum galaxy');
-INSERT INTO public.galaxy VALUES (6, NULL, NULL, 'black eye galaxy');
+INSERT INTO public.galaxy VALUES (1, NULL, NULL, 'andromeda', '210000m/sec');
+INSERT INTO public.galaxy VALUES (2, NULL, NULL, 'whirlpool galaxy', '210000m/sec');
+INSERT INTO public.galaxy VALUES (3, NULL, NULL, 'pinwheel galaxy', '210000m/sec');
+INSERT INTO public.galaxy VALUES (4, NULL, NULL, 'milky way', '210000m/sec');
+INSERT INTO public.galaxy VALUES (5, NULL, NULL, 'triangulum galaxy', '210000m/sec');
+INSERT INTO public.galaxy VALUES (6, NULL, NULL, 'black eye galaxy', '210000m/sec');
 
 
 --
@@ -318,22 +319,22 @@ INSERT INTO public.planet VALUES (7, 'mercury', NULL, false, 1);
 INSERT INTO public.planet VALUES (8, 'pluto', NULL, false, 1);
 INSERT INTO public.planet VALUES (9, 'saturn', NULL, false, 1);
 INSERT INTO public.planet VALUES (10, 'new horizons', NULL, false, 1);
-INSERT INTO public.planet VALUES (11, 'pioneer 10', NULL, false, 2);
-INSERT INTO public.planet VALUES (12, 'pioneer 11', NULL, false, 3);
-INSERT INTO public.planet VALUES (13, 'voyager 1', NULL, false, 3);
-INSERT INTO public.planet VALUES (14, 'voyager 2', NULL, false, 4);
+INSERT INTO public.planet VALUES (11, 'pioneer 10', NULL, false, 1);
+INSERT INTO public.planet VALUES (12, 'pioneer 11', NULL, false, 1);
+INSERT INTO public.planet VALUES (13, 'voyager 1', NULL, false, 1);
+INSERT INTO public.planet VALUES (14, 'voyager 2', NULL, false, 1);
 
 
 --
 -- Data for Name: star; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
-INSERT INTO public.star VALUES (2, 99999999, 'green', 'a_star', 1);
-INSERT INTO public.star VALUES (3, 99999999, 'green', 'b_star', 1);
-INSERT INTO public.star VALUES (4, 99999999, 'yellow', 'c_star', 1);
-INSERT INTO public.star VALUES (5, 99999999, 'gray', 'd_star', 1);
-INSERT INTO public.star VALUES (6, 99999999, 'orange', 'e_star', 1);
-INSERT INTO public.star VALUES (1, 52850, 'red', 'sun', 4);
+INSERT INTO public.star VALUES (1, 432690, 'red', 'sun', 4);
+INSERT INTO public.star VALUES (2, 506247, 'white', 'sirius', 4);
+INSERT INTO public.star VALUES (3, 11033595, 'red', 'arcturus', 4);
+INSERT INTO public.star VALUES (4, 1081725, 'blue', 'vega', 4);
+INSERT INTO public.star VALUES (5, 32019060, 'yellowish-white', 'canopus', 4);
+INSERT INTO public.star VALUES (6, 432690000, 'red', 'Betelgeuse', 4);
 
 
 --
