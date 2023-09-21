@@ -49,9 +49,10 @@ SET default_table_access_method = heap;
 
 CREATE TABLE public.blackhole (
     blackhole_id integer NOT NULL,
-    gravity integer,
+    description character varying(255) DEFAULT 'at the center of galaxy'::character varying,
     galaxy_id integer,
-    wormhole boolean DEFAULT false NOT NULL
+    wormhole boolean DEFAULT false NOT NULL,
+    name character varying(255)
 );
 
 
@@ -266,6 +267,10 @@ ALTER TABLE ONLY public.star ALTER COLUMN star_id SET DEFAULT nextval('public.st
 -- Data for Name: blackhole; Type: TABLE DATA; Schema: public; Owner: freecodecamp
 --
 
+INSERT INTO public.blackhole VALUES (3, 'at the center of galaxy', 1, false, 'MIAMI');
+INSERT INTO public.blackhole VALUES (4, 'at the center of galaxy', 5, false, 'M33 X-7');
+INSERT INTO public.blackhole VALUES (1, 'at the center of galaxy', 4, false, 'sagittarius A*');
+INSERT INTO public.blackhole VALUES (2, 'at the center of galaxy', 2, false, 'X');
 
 
 --
@@ -303,6 +308,7 @@ INSERT INTO public.moon VALUES (17, 'moon of neptune', false, 3, 'Galatea');
 INSERT INTO public.moon VALUES (18, 'moon of neptune', false, 3, 'Larissa');
 INSERT INTO public.moon VALUES (19, 'moon of neptune', false, 3, 'Naiad');
 INSERT INTO public.moon VALUES (20, 'moon of neptune', false, 3, 'Halimede');
+INSERT INTO public.moon VALUES (11, 'moon of jupiter', false, 4, 'Ganymede');
 
 
 --
@@ -373,6 +379,14 @@ SELECT pg_catalog.setval('public.star_star_id_seq', 6, true);
 
 
 --
+-- Name: planet amount_of_people; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.planet
+    ADD CONSTRAINT amount_of_people UNIQUE (amount_of_people);
+
+
+--
 -- Name: blackhole blackhole_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
@@ -405,11 +419,35 @@ ALTER TABLE ONLY public.moon
 
 
 --
+-- Name: blackhole name; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.blackhole
+    ADD CONSTRAINT name UNIQUE (name);
+
+
+--
 -- Name: planet planet_pkey; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
 --
 
 ALTER TABLE ONLY public.planet
     ADD CONSTRAINT planet_pkey PRIMARY KEY (planet_id);
+
+
+--
+-- Name: star radius_in_miles; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.star
+    ADD CONSTRAINT radius_in_miles UNIQUE (radius_in_miles);
+
+
+--
+-- Name: galaxy speed; Type: CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.galaxy
+    ADD CONSTRAINT speed UNIQUE (speed);
 
 
 --
@@ -442,6 +480,14 @@ ALTER TABLE ONLY public.moon
 
 ALTER TABLE ONLY public.planet
     ADD CONSTRAINT fk_star FOREIGN KEY (star_id) REFERENCES public.star(star_id);
+
+
+--
+-- Name: blackhole galaxy_id; Type: FK CONSTRAINT; Schema: public; Owner: freecodecamp
+--
+
+ALTER TABLE ONLY public.blackhole
+    ADD CONSTRAINT galaxy_id FOREIGN KEY (galaxy_id) REFERENCES public.galaxy(galaxy_id);
 
 
 --
